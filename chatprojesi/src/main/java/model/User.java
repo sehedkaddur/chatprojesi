@@ -12,13 +12,17 @@ public class User {
     private String sifre;
     private String eposta;
     public Long getId() {
-        return id;}
+        return id;
+    }
     public void setId(Long id) {
-        this.id = id;}
+        this.id = id;
+    }
     public String getKullaniciAdi() {
-        return kullaniciAdi;}
+        return kullaniciAdi;
+    }
     public void setKullaniciAdi(String kullaniciAdi) {
-        this.kullaniciAdi = kullaniciAdi;}
+        this.kullaniciAdi = kullaniciAdi;
+    }
     public String getSifre() {
         return sifre;
     }
