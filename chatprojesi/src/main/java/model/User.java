@@ -12,8 +12,7 @@ public class User {
     private String sifre;
     private String eposta;
     public Long getId() {
-        return id;
-    }
+        return id;}
     public void setId(Long id) {
         this.id = id;
     }
@@ -27,12 +26,8 @@ public class User {
         return sifre;
     }
     public void setSifre(String sifre) {
-        this.sifre = sifre;
-    }
+        this.sifre = sifre;}
     public String getEposta() {
-        return eposta;
-    }
+        return eposta;}
     public void setEposta(String eposta) {
-        this.eposta = eposta;
-    }
-}
+        this.eposta = eposta;}}
