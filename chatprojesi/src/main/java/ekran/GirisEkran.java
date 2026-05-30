@@ -23,6 +23,9 @@ public class GirisEkran extends Application {
             String sifre = sifreGirisAlani.getText();
             if (kullaniciAdi.equals("şehed") && sifre.equals("2006")) {
                 sonucYazisi.setText("Giriş başarılı!");
+                MesajEkrani mesajEkrani = new MesajEkrani();
+                mesajEkrani.start(new Stage());
+                anaEkran.close();
             }
             else {
                 sonucYazisi.setText("Kullanıcı adı veya şifre hatalı!");
