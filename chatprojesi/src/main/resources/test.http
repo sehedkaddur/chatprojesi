@@ -1,0 +1,7 @@
+POST http://localhost:8080/kullanici/kaydet
+Content-Type: application/json
+{
+  "kullaniciAdi": "şehed",
+  "sifre": "2006",
+  "eposta": "shahad@gmail.com"
+}
