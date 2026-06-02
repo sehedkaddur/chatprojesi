@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket Test</title>
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+</head>
+<body>
+<h2>WebSocket Chat Test</h2>
+<input id="yazilanMesaj" type="text" placeholder="Mesaj yaz...">
+<button onclick="mesajiGonder()">Gönder</button>
+<ul id="gelenMesajlar">
+</ul>
+<script>
+    var baglanti = new SockJS('http://localhost:8080/sohbet');
+    var stomp = Stomp.over(baglanti);
+    stomp.connect({}, function () {
+        stomp.subscribe('/topic/mesajlar', function (gelenVeri) {
+            var yeniSatir = document.createElement("li");
+            yeniSatir.textContent = gelenVeri.body;
+            document.getElementById("gelenMesajlar").appendChild(yeniSatir);
+        });
+    });
+    function mesajiGonder() {
+        var mesajIcerigi = document.getElementById("yazilanMesaj").value;
+        stomp.send("/app/mesaj", {}, mesajIcerigi);
+        document.getElementById("yazilanMesaj").value = "";
+    }
+</script>
+
+</body>
+</html>
