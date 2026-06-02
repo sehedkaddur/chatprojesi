@@ -3,6 +3,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import java.util.List;
 @Entity
 public class User {
     @Id
@@ -11,6 +13,8 @@ public class User {
     private String kullaniciAdi;
     private String sifre;
     private String eposta;
+    @OneToMany(mappedBy = "kullanici")
+    private List<Mesaj> mesajlar;
     public Long getId() {
         return id;}
     public void setId(Long id) {
