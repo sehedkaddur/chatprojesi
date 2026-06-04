@@ -14,15 +14,13 @@ public class UserService {
         return userRepository.findAll();
     }
     public User kullaniciGuncelle(Long id, User yeniUser) {
-        User user = userRepository.findById(id).orElse(null);
-        if (user != null) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Kullanıcı bulunamadı"));
+        if (user != null)
             user.setKullaniciAdi(yeniUser.getKullaniciAdi());
             user.setSifre(yeniUser.getSifre());
             user.setEposta(yeniUser.getEposta());
             return userRepository.save(user);
-        }return null;
-    }
-    public void kullaniciSil(Long id) {
-        userRepository.deleteById(id);
-    }
-}
+        }
+        public void kullaniciSil (Long id){
+            userRepository.deleteById(id);}}
