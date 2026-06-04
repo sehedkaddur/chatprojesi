@@ -11,4 +11,12 @@ public class UserController {
     @PostMapping("/kaydet")
     public User kullaniciKaydet(@RequestBody User user) {
         return userService.kullaniciKaydet(user);
+    }
+    @PutMapping("/guncelle/{id}")
+    public User kullaniciGuncelle(@PathVariable Long id, @RequestBody User user) {
+        return userService.kullaniciGuncelle(id, user);
+    }
+    @DeleteMapping("/sil/{id}")
+    public void kullaniciSil(@PathVariable Long id) {
+        userService.kullaniciSil(id);
     }}
