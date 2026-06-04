@@ -4,6 +4,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 public class MesajEkrani extends Application {
     @Override
     public void start(Stage anaPencere) {
@@ -13,8 +16,28 @@ public class MesajEkrani extends Application {
         mesajListesi.setEditable(false);
         mesajGonderButonu.setOnAction(e -> {
             String yazilanMesaj = mesajYazmaAlani.getText();
-            mesajListesi.appendText(yazilanMesaj + "\n");
-            mesajYazmaAlani.clear();
+            try {
+                URL adres = new URL("http://localhost:8080/mesaj/kaydet");
+                HttpURLConnection baglanti = (HttpURLConnection) adres.openConnection();
+                baglanti.setRequestMethod("POST");
+                baglanti.setRequestProperty("Content-Type", "application/json");
+                baglanti.setDoOutput(true);
+                String jsonVeri = "{\"mesajIcerigi\":\"" + yazilanMesaj + "\"}";
+                OutputStream veriAkisi = baglanti.getOutputStream();
+                veriAkisi.write(jsonVeri.getBytes());
+                veriAkisi.flush();
+                veriAkisi.close();
+                int gelenYanit = baglanti.getResponseCode();
+                if (gelenYanit == 200) {
+                    mesajListesi.appendText(yazilanMesaj + "\n");
+                    mesajYazmaAlani.clear();
+                } else {
+                    mesajListesi.appendText("Mesaj kaydedilemedi.\n");
+                }
+                baglanti.disconnect();
+            } catch (Exception hata) {
+                mesajListesi.appendText("Bağlantı hatası oluştu.\n");
+            }
         });
         VBox anaKutu = new VBox();
         anaKutu.getChildren().addAll(
